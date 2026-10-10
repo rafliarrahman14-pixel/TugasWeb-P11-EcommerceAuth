@@ -1,44 +1,48 @@
-# Tugas Web Programming - P11 E-Commerce DB + Secure Auth
+# Tugas Rutin 11 — E-Commerce DB + Secure Auth
 
 ## Identitas
 
 - **Nama:** Rafli Arrahman
 - **Program Studi:** Ilmu Komputer
 - **Mata Kuliah:** Pemrograman Web
-- **Tugas:** Tugas Rutin 11 - E-Commerce DB + Secure Auth
+- **Tugas:** Tugas Rutin 11
 
-## Deskripsi
+## Deskripsi Proyek
 
-Proyek ini merupakan aplikasi e-commerce sederhana berbasis Laravel dan MySQL yang dikembangkan untuk memenuhi Tugas Rutin 11 pada mata kuliah Pemrograman Web.
+Proyek ini merupakan implementasi aplikasi e-commerce sederhana menggunakan Laravel dan MySQL. Pengembangan berfokus pada pengelolaan database relasional, relasi antarmodel menggunakan Eloquent ORM, autentikasi pengguna, serta pembatasan akses berdasarkan peran dan kebijakan otorisasi.
 
-Proyek ini berfokus pada pengelolaan database, relasi antarmodel menggunakan Eloquent ORM, autentikasi pengguna, pembatasan akses berdasarkan role, serta otorisasi tindakan terhadap produk menggunakan ProductPolicy.
+## Teknologi
 
-## Teknologi yang Digunakan
-
-- PHP 8.3.33
-- Laravel 13.34.0
+- PHP 8.3
+- Laravel 13
 - MySQL
+- Laravel Breeze
+- Eloquent ORM
 - Composer
 - Node.js dan npm
 - Laragon
-- phpMyAdmin
-- Laravel Breeze
-- Visual Studio Code
 
-## Fitur Aplikasi
+## Fitur Utama
 
-1. Autentikasi pengguna menggunakan Laravel Breeze, meliputi login, registrasi, dan logout.
-2. Pengelolaan data kategori, produk, pesanan, dan item pesanan melalui model Eloquent.
-3. Relasi antarmodel untuk menghubungkan data produk, kategori, pengguna, dan pesanan.
-4. Pembatasan akses halaman berdasarkan role admin, editor, dan user menggunakan middleware.
-5. Otorisasi tindakan edit dan hapus produk menggunakan ProductPolicy.
-6. Pengujian query database menggunakan Laravel Tinker.
+### 1. Database dan Eloquent
+
+- Migrasi tujuh tabel utama untuk kebutuhan e-commerce beserta relasi foreign key.
+- Seeder dan factory untuk menghasilkan data produk.
+- Relasi antarmodel untuk kategori, produk, pengguna, pesanan, item pesanan, dan tag.
+- Pengujian query database menggunakan Laravel Tinker.
+
+### 2. Autentikasi dan Keamanan
+
+- Autentikasi pengguna menggunakan Laravel Breeze.
+- Middleware untuk membatasi akses berdasarkan peran admin, editor, dan user.
+- ProductPolicy untuk mengatur otorisasi tindakan terhadap produk.
+- Pengujian perlindungan route dan penolakan akses bagi pengguna yang tidak memiliki izin.
 
 ## Struktur Database
 
-Database yang digunakan dalam proyek ini adalah `tugasweb_p11_ecommerce`.
+Database yang digunakan dalam pengembangan adalah `tugasweb_p11_ecommerce`.
 
-Tabel utama yang digunakan meliputi:
+Tabel yang digunakan meliputi:
 
 - `users`
 - `categories`
@@ -48,28 +52,16 @@ Tabel utama yang digunakan meliputi:
 - `tags`
 - `product_tag`
 
-Proyek ini juga menggunakan tabel pendukung Laravel sesuai dengan migrasi yang tersedia, seperti tabel cache dan jobs.
-
-## Persyaratan Sistem
-
-Sebelum menjalankan proyek, pastikan perangkat telah memiliki:
-
-- PHP yang kompatibel dengan proyek.
-- Composer.
-- MySQL atau MariaDB.
-- Node.js dan npm.
-- Laragon atau lingkungan pengembangan PHP sejenis.
+Tabel pendukung Laravel juga digunakan sesuai kebutuhan aplikasi.
 
 ## Instalasi dan Konfigurasi
 
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/USERNAME/TugasWeb-P11-EcommerceAuth.git
+git clone https://github.com/rafliarrahman14-pixel/TugasWeb-P11-EcommerceAuth.git
 cd TugasWeb-P11-EcommerceAuth
 ```
-
-Ganti `USERNAME` dengan username GitHub pemilik repositori.
 
 ### 2. Instal Dependensi
 
@@ -78,15 +70,15 @@ composer install
 npm install
 ```
 
-### 3. Siapkan File Environment
+### 3. Konfigurasi Environment
 
-Buat file `.env` berdasarkan templat `.env.example`:
+Salin file konfigurasi contoh:
 
-```bash
+```powershell
 copy .env.example .env
 ```
 
-Kemudian buat application key:
+Buat application key:
 
 ```bash
 php artisan key:generate
@@ -94,9 +86,7 @@ php artisan key:generate
 
 ### 4. Konfigurasi Database
 
-Buat database bernama `tugasweb_p11_ecommerce` melalui phpMyAdmin atau MySQL.
-
-Sesuaikan konfigurasi database di file `.env`:
+Buat database `tugasweb_p11_ecommerce` melalui MySQL atau phpMyAdmin. Sesuaikan konfigurasi pada file `.env` dengan lingkungan lokal:
 
 ```env
 DB_CONNECTION=mysql
@@ -107,29 +97,25 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Sesuaikan username dan password dengan konfigurasi MySQL lokal yang digunakan.
+### 5. Migrasi dan Seeder
 
-### 5. Jalankan Migrasi dan Seeder
-
-Pastikan database yang dipilih adalah database khusus proyek P11 dan periksa kondisi data sebelum menjalankan migrasi atau seeder.
-
-Untuk instalasi baru:
+Untuk instalasi database baru, jalankan:
 
 ```bash
 php artisan migrate --seed
 ```
 
-Perintah tersebut menjalankan migrasi dan seeder yang terdaftar dalam konfigurasi proyek. Jika database sudah berisi data, periksa terlebih dahulu agar tidak mengulang proses yang tidak diperlukan.
+Perintah tersebut menjalankan migrasi dan seeder yang terdaftar dalam proyek.
 
-### 6. Jalankan Aplikasi
+### 6. Menjalankan Aplikasi
 
-Jalankan server Laravel di terminal pertama:
+Jalankan server Laravel:
 
 ```bash
 php artisan serve
 ```
 
-Jalankan Vite di terminal kedua:
+Pada terminal lain, jalankan Vite:
 
 ```bash
 npm run dev
@@ -139,30 +125,25 @@ Buka alamat lokal yang ditampilkan oleh Laravel Artisan di browser.
 
 ## Pengujian
 
-Pengujian proyek mencakup beberapa aspek berikut:
+Pengujian dilakukan terhadap aspek berikut:
 
-1. Memeriksa struktur database dan data produk.
-2. Menghitung jumlah produk menggunakan Laravel Tinker.
-3. Memeriksa relasi produk dengan kategori.
-4. Memeriksa relasi pengguna dengan pesanan.
-5. Menghitung total pesanan berdasarkan item pesanan.
-6. Memfilter produk berdasarkan kategori Elektronik.
-7. Menguji halaman login Laravel Breeze.
-8. Menguji middleware role untuk admin dan user.
-9. Menguji ProductPolicy terhadap akses edit produk.
-10. Memastikan pengguna tanpa izin mendapatkan respons akses ditolak.
-
-## Dokumentasi Pengujian
-
-Bukti pengujian disimpan di folder [`docs/`](docs/).
+1. Struktur database dan jumlah data produk.
+2. Query jumlah produk menggunakan Laravel Tinker.
+3. Relasi produk dengan kategori.
+4. Relasi pengguna dengan pesanan.
+5. Perhitungan total pesanan.
+6. Filter produk berdasarkan kategori Elektronik.
+7. Autentikasi menggunakan Laravel Breeze.
+8. Pembatasan akses berdasarkan role pengguna.
+9. Otorisasi tindakan terhadap produk menggunakan ProductPolicy.
 
 ## Dokumentasi Pengujian
 
-Seluruh bukti pengujian disimpan dalam folder `docs/`.
+Dokumentasi berikut menampilkan hasil pengujian database, query Laravel Tinker, autentikasi, middleware role, dan otorisasi produk.
 
 ### A. Database dan Query Laravel Tinker
 
-**1. Struktur Database P11**
+**1. Struktur Database**
 
 ![Struktur Database P11](docs/01_database_p11.png)
 
@@ -176,9 +157,9 @@ Seluruh bukti pengujian disimpan dalam folder `docs/`.
 
 **4. Query 2 — Relasi Produk dan Kategori**
 
-![Relasi Kategori](docs/04_query_2_relasi_kategori.png)
+![Relasi Produk dan Kategori](docs/04_query_2_relasi_kategori.png)
 
-**5. Query 3 — Jumlah Pesanan**
+**5. Query 3 — Jumlah Pesanan Pengguna**
 
 ![Jumlah Pesanan](docs/05_query_3_jumlah_pesanan.png)
 
@@ -188,7 +169,7 @@ Seluruh bukti pengujian disimpan dalam folder `docs/`.
 
 **7. Query 5 — Filter Kategori Elektronik**
 
-![Filter Elektronik](docs/07_query_5_filter_elektronik.png)
+![Filter Kategori Elektronik](docs/07_query_5_filter_elektronik.png)
 
 ### B. Autentikasi dan Otorisasi
 
@@ -196,32 +177,28 @@ Seluruh bukti pengujian disimpan dalam folder `docs/`.
 
 ![Halaman Login](docs/08_breeze_halaman_login.png)
 
-**9. Role Admin — Akses Berhasil**
+**9. Akses Admin Berhasil**
 
-![Role Admin Berhasil](docs/09_role_admin_berhasil.png)
+![Akses Admin](docs/09_role_admin_berhasil.png)
 
-**10. Role User — Akses Admin Ditolak**
+**10. Akses Admin oleh User Ditolak**
 
-![Role User Ditolak](docs/10_role_user_akses_ditolak.png)
+![Akses Admin Ditolak](docs/10_role_user_akses_ditolak.png)
 
-**11. ProductPolicy — Akses Edit oleh User Ditolak**
+**11. Akses Edit Produk oleh User Ditolak**
 
-![ProductPolicy User Ditolak](docs/11_policy_edit_akses_ditolak.png)
+![ProductPolicy User](docs/11_policy_edit_akses_ditolak.png)
 
-**12. ProductPolicy — Akses Edit oleh Admin Diizinkan**
+**12. Akses Edit Produk oleh Admin Diizinkan**
 
-![ProductPolicy Admin Diizinkan](docs/12_policy_edit_akses_diizinkan.png)
-
-Pastikan seluruh file screenshot di atas benar-benar tersedia di folder `docs/`. Nama file pada tabel harus sesuai dengan nama file yang diunggah.
+![ProductPolicy Admin](docs/12_policy_edit_akses_diizinkan.png)
 
 ## Keamanan
 
-- File `.env` tidak disertakan dalam repository karena dapat berisi konfigurasi lokal dan informasi sensitif.
-- File `.env.example` digunakan sebagai templat konfigurasi.
-- Folder `vendor` dan `node_modules` tidak perlu diunggah karena dependensi dapat dipasang kembali menggunakan Composer dan npm.
+File `.env` tidak disertakan dalam repository karena digunakan untuk menyimpan konfigurasi lokal yang dapat mencakup informasi sensitif. File `.env.example` disediakan sebagai templat konfigurasi.
+
+Folder dependensi `vendor` dan `node_modules` tidak disertakan karena dapat dibuat kembali melalui Composer dan npm.
 
 ## Penutup
 
-Proyek ini menjadi penerapan konsep pengembangan aplikasi web menggunakan Laravel, pengelolaan database relasional, autentikasi, middleware, dan otorisasi berbasis kebijakan akses.
-
-Seluruh fitur dan pengujian didokumentasikan sebagai bukti pengerjaan Tugas Rutin 11 pada mata kuliah Pemrograman Web.
+Proyek ini menerapkan konsep pengembangan aplikasi web menggunakan Laravel, pengelolaan database relasional, autentikasi, middleware, dan otorisasi berbasis kebijakan akses. Dokumentasi pengujian disertakan sebagai bukti implementasi fitur pada Tugas Rutin 11.
